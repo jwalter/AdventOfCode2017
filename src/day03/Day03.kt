@@ -37,5 +37,28 @@ fun move(pos: Pair<Int, Int>, dir: Direction): Pair<Int, Int> {
 }
 
 fun taskTwo(input: Int): Int {
-    return input
+    var cellValue = 1
+    var pos = Pair(0, 0)
+    var dir = Direction.RIGHT
+    val cells = HashMap<Pair<Int, Int>, Int>()
+    while (cellValue <= input) {
+        cells.put(pos, cellValue)
+        dir = nextDir(dir, pos)
+        pos = move(pos, dir)
+        cellValue = nextValue(pos, cells)
+    }
+    return cellValue
+}
+
+fun nextValue(pos: Pair<Int, Int>, cells: Map<Pair<Int, Int>, Int>): Int {
+    var result = 0
+    for (x in -1..1) {
+        for (y in -1..1) {
+            val neighbour = Pair(pos.first + x, pos.second + y)
+            if ((x !=0 || y!= 0) && cells.containsKey(neighbour)) {
+                result += cells[neighbour]!!
+            }
+        }
+    }
+    return result
 }
