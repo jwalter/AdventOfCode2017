@@ -12,6 +12,8 @@ fun taskOne(passphrases: List<String>): Int {
     return passphrases.count { it.split(" ").toSet().joinToString(" ").length == it.length }
 }
 
-fun taskTwo(value: List<String>): Int {
-    return -1
+fun taskTwo(passphrases: List<String>): Int {
+    return passphrases.count { it.split(" ").map { sort(it) }.toSet().joinToString(" ").length == it.length }
 }
+
+fun sort(it: String) = it.toList().sorted().joinToString("")
